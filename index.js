@@ -4,6 +4,16 @@ const client = new Discord.Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAG
 
 const prefix = '-';
 
+const fs = require('fs');
+const ping = require('./commands/ping');
+
+client.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+for(file of commandFiles){
+    command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
+}
+
 client.once('ready', () => {
     console.log('bot is online')
 })
@@ -11,11 +21,11 @@ client.once('ready', () => {
 client.on('messageCreate', message => {
     if(!message.content.startsWith(prefix) || message.author.bot) return;
 
-    list = message.content.slice(prefix.length).split(" ");
-    cmd = list.shift().toLowerCase();
+    args = message.content.slice(prefix.length).split(" ");
+    command = args.shift().toLowerCase();
 
-    if(cmd == 'ping'){
-        message.channel.send('pong');
+    if(command == 'ping'){
+        client.commands.get('ping').execute(message, args);
     }
 });
 
