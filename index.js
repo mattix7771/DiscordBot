@@ -14,9 +14,16 @@ for(file of commandFiles){
     client.commands.set(command.name, command);
 }
 
-client.once('ready', () => {
+client.on('ready', () => {
     console.log('bot is online')
-})
+});
+
+client.on('guildMemberAdd', guildMember =>{
+    message.channel.send("hello");
+    let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'Member');
+    guildMember.roles.add(welcomeRole);
+    guildMember.guild.channels.cache.get('961316217451319368').send(`welcome ${guildMember.username} to the server`);
+});
 
 client.on('messageCreate', message => {
     if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -38,6 +45,8 @@ client.on('messageCreate', message => {
         client.commands.get('mute').execute(message, args);
     } else if(command == 'unmute'){
         client.commands.get('unmute').execute(message, args);
+    } else if(command == 'givebasicrole'){
+        client.commands.get('givebasicrole').execute(message, args);
     }
 });
 

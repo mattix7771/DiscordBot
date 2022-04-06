@@ -5,8 +5,8 @@ module.exports = {
         member = message.mentions.users.first();
         
         if(member){
-            memberTarger = message.guild.members.cache.get(member.id);
-            memberTarger.kick();
+            memberTarget = message.guild.members.cache.get(member.id);
+            memberTarget.kick();
             message.channel.send(`${member.username} has been kicked`);
 
         }else{
