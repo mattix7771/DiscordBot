@@ -26,6 +26,8 @@ client.on('messageCreate', message => {
 
     if(command == 'ping'){
         client.commands.get('ping').execute(message, args);
+    } else if(command == 'clear'){
+        client.commands.get('clear').execute(message, args);
     }
 });
 
