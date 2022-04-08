@@ -4,7 +4,7 @@ module.exports = {
     execute(message, args){
         member = message.mentions.users.first();
         let memberTarget = message.guild.members.cache.get(member.id);
-        let welcomeRole = message.guild.roles.cache.find(role => role.name === 'Member');
+        let welcomeRole = message.guild.roles.cache.find(role => role.name === '.☆Homie☆.。');
 
         if(member){
 
